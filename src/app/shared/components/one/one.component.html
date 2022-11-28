@@ -1,0 +1,33 @@
+<div class="wrapper">
+  <header>
+    <h1>Component 1</h1>
+  </header>
+  <div class="wrapper__content">
+
+    <div class="content__btn">
+      <div>
+        <button (click)="doTaskOne()">One</button>
+      </div>
+     <div>
+       <span *ngFor="let a of res1">{{a}} </span>
+     </div>
+
+      <div>
+        <button (click)="doTaskTwo()">Two</button>
+      </div>
+      <div>
+        <span *ngFor="let a of res2">{{a}} </span>
+      </div>
+
+      <div>
+        <button (click)="doTaskThree()">Three</button>
+      </div>
+      <div>
+        <span *ngFor="let a of res3">{{a}} </span>
+      </div>
+    </div>
+
+
+  </div>
+
+</div>
