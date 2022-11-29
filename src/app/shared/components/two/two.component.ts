@@ -1,18 +1,5 @@
 import {Component, OnDestroy} from '@angular/core';
-import {
-  concatAll,
-  concatMap,
-  delay,
-  exhaustMap,
-  interval,
-  map,
-  mergeMap,
-  of,
-  repeat,
-  Subject,
-  take,
-  takeUntil
-} from "rxjs";
+import {concatMap, delay, exhaustMap, interval, mergeMap, of, repeat, Subject, take, takeUntil} from "rxjs";
 
 @Component({
   selector: 'app-two',
@@ -37,49 +24,42 @@ export class TwoComponent implements OnDestroy {
 
   public doTaskOne(): void {
 
-    const res = this.numbers.pipe(
+    this.numbers.pipe(
       exhaustMap((val) => of(val).pipe(delay(200), repeat(6))),
-    )
-
-    res.pipe(
       takeUntil(this.destroy$)
     ).subscribe((val) => this.res1.push(val))
 
   }
 
   public doTaskTwo(): void {
-    const res = this.numbers.pipe(
-      map(() => interval(100).pipe(take(10))),
+    this.numbers.pipe(
+      concatMap(() => interval(100).pipe(take(10))),
       takeUntil(this.destroy$)
-    )
-    res.pipe(concatAll()).subscribe((val) => this.res2.push(val))
+    ).subscribe((val) => this.res2.push(val))
+
   }
 
   public doTaskThree(): void {
 
-    const res = this.numbers.pipe(
+    this.numbers.pipe(
       concatMap((val) => {
         if (val % 2 === 0) {
           return of(val).pipe(delay(300), repeat(5))
         }
         return of(val);
       }),
-    )
-
-    res.pipe(
       takeUntil(this.destroy$)
     ).subscribe((val) => this.res3.push(val))
+
   }
 
   public doTaskFour(): void {
 
-    const res = this.numbers.pipe(
+    this.numbers.pipe(
       mergeMap((val) => of(val).pipe(delay(300), repeat(5))),
-    )
-
-    res.pipe(
       takeUntil(this.destroy$)
     ).subscribe((val) => this.res4.push(val))
+
   }
 }
 
